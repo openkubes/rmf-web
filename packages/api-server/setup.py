@@ -27,6 +27,7 @@ setup(
         "pydantic~=2.8.0",
         "schedule~=1.2.1",
         "termcolor~=2.4.0",
+        "prometheus-fastapi-instrumentator~=7.0",
     ],
     extras_require={
         "postgres": ["asyncpg~=0.29.0"],

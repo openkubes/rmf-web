@@ -13,6 +13,7 @@ from fastapi.openapi.docs import (
     get_swagger_ui_oauth2_redirect_html,
 )
 from fastapi.staticfiles import StaticFiles
+from prometheus_fastapi_instrumentator import Instrumentator
 from tortoise import Tortoise
 
 from api_server.repositories.cached_files import get_cached_file_repo
@@ -150,6 +151,11 @@ app = FastIO(
     socketio_connect=on_sio_connect,
     docs_url=None,
     redoc_url=None,
+)
+Instrumentator().instrument(app).expose(
+    app,
+    endpoint="/metrics",
+    include_in_schema=False,
 )
 if app.swagger_ui_oauth2_redirect_url is None:
     app.swagger_ui_oauth2_redirect_url = "docs/oauth2-redirect"
